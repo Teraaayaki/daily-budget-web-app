@@ -7,11 +7,9 @@ export const metadata: Metadata = {
   description: "A web app that allows you to manage your daily budget.",
 }
 
-type RooyLayoutProps = {
-  children: React.ReactNode
-}
+type RootLayoutProps = { children: React.ReactNode }
 
-const RootLayout = ({ children }: RooyLayoutProps) => {
+const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="en">
       <body>{children}</body>

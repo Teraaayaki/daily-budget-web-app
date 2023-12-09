@@ -1,11 +1,11 @@
-import Link from "@/components/Link"
+import LoginForm from "@/components/templates/LoginForm"
 
-export const Home = () => {
+export const LoginPage = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>DAILY BUDGET WEB APP</h1>
+    <main className="bg-navy-blue gap-2 px-56 py-40 h-full">
+      <LoginForm />
     </main>
   )
 }
 
-export default Home
+export default LoginPage
