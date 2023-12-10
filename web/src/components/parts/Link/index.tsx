@@ -7,7 +7,11 @@ type LinkProps = {
 }
 
 const Link = ({ href, children }: LinkProps) => {
-  return <NextLink href={href}>{children}</NextLink>
+  return (
+    <NextLink href={href} className="text-blue-500 underline">
+      {children}
+    </NextLink>
+  )
 }
 
 export default Link

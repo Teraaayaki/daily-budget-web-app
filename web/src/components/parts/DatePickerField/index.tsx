@@ -4,30 +4,29 @@ import TextField, { TextFieldProps } from "@mui/material/TextField"
 import { Control, useController } from "react-hook-form"
 import FormControl, { FormControlProps } from "@mui/material/FormControl"
 import FormHelperText from "@mui/material/FormHelperText"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 
-export type TextInputFormControlProps = Omit<
+export type DatePickerFormControlProps = Omit<
   FormControlProps,
   "error" | "disabled"
 >
 
-export type TextInputProps = Omit<TextFieldProps, "error"> & {
-  error?: string
-  formControlProps?: TextInputFormControlProps
-}
-
-export type InputFieldProps = Omit<TextInputProps, "t"> & {
+export type InputFieldProps = {
   name: string
+  label: string
+  error?: string
   control: Control<any>
-  defaultValue?: string | null
+  formControlProps?: DatePickerFormControlProps
+  defaultValue?: Date | null
 }
 
-const InputField = ({
+const DatePickerField = ({
   label,
-  placeholder,
   name,
   control,
-  defaultValue = "",
-  type = "text",
+  defaultValue = null,
 }: InputFieldProps) => {
   const {
     field: { ref, ...rest },
@@ -37,15 +36,9 @@ const InputField = ({
   return (
     <FormControl error={!!error}>
       <FormLabel>{label}</FormLabel>
-      <TextField
-        {...rest}
-        inputRef={ref}
-        placeholder={placeholder}
-        type={type}
-        name={name}
-        error={!!error}
-        className="bg-white w-96"
-      />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker {...rest} inputRef={ref} className="bg-white w-96" />
+      </LocalizationProvider>
       {error && (
         <FormHelperText error={!!error.message} className="mx-0">
           {error.message}
@@ -55,4 +48,4 @@ const InputField = ({
   )
 }
 
-export default InputField
+export default DatePickerField

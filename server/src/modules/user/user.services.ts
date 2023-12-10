@@ -49,9 +49,10 @@ export const signUp = async (req: Request, res: Response) => {
       process.env.ACCESS_TOKEN_SECRET
     )
 
-    return res
-      .status(201)
-      .json({ message: "User created successfully.", token })
+    return res.status(201).json({
+      message: "Successfully signed up.",
+      token,
+    })
   } catch (e) {
     return res.status(500).json({ error: "Internal Server Error", e })
   }

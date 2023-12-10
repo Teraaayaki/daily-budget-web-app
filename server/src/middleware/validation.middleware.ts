@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import { body, validationResult } from "express-validator"
 
-type Action = "signIn" | "signUp"
+type Action = "signIn" | "signUp" | "createDailyBudget"
 
 export const validate = (action: Action) => {
   switch (action) {
@@ -12,6 +12,12 @@ export const validate = (action: Action) => {
         body("password", "Password must be atleast 8 characters.").isLength({
           min: 8,
         }),
+      ]
+    }
+    case "createDailyBudget": {
+      return [
+        body("date", "Date is required.").exists(),
+        body("budget", "Budget is required.").exists().isNumeric(),
       ]
     }
   }

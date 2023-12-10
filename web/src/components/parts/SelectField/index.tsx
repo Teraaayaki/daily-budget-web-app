@@ -4,48 +4,58 @@ import TextField, { TextFieldProps } from "@mui/material/TextField"
 import { Control, useController } from "react-hook-form"
 import FormControl, { FormControlProps } from "@mui/material/FormControl"
 import FormHelperText from "@mui/material/FormHelperText"
+import Select, { SelectChangeEvent, SelectProps } from "@mui/material/Select"
+import { MenuItem } from "@mui/material"
 
-export type TextInputFormControlProps = Omit<
+export type SelectFieldFormControlProps = Omit<
   FormControlProps,
   "error" | "disabled"
 >
 
-export type TextInputProps = Omit<TextFieldProps, "error"> & {
+export type SelectInputProps = Omit<SelectProps, "error"> & {
   error?: string
-  formControlProps?: TextInputFormControlProps
+  formControlProps?: SelectFieldFormControlProps
 }
 
-export type InputFieldProps = Omit<TextInputProps, "t"> & {
+export type SelectFieldProps = Omit<SelectInputProps, "t"> & {
   name: string
   control: Control<any>
   defaultValue?: string | null
+  options: string[]
 }
 
-const InputField = ({
+const SelectField = ({
   label,
   placeholder,
   name,
   control,
   defaultValue = "",
-  type = "text",
-}: InputFieldProps) => {
+  options,
+}: SelectFieldProps) => {
   const {
-    field: { ref, ...rest },
+    field: { ref, onChange, value, ...rest },
     fieldState: { error },
   } = useController({ name, control, defaultValue })
 
   return (
     <FormControl error={!!error}>
       <FormLabel>{label}</FormLabel>
-      <TextField
+      <Select
         {...rest}
+        value={value}
+        onChange={(event: SelectChangeEvent) => {
+          onChange(event.target.value)
+        }}
         inputRef={ref}
         placeholder={placeholder}
-        type={type}
         name={name}
         error={!!error}
         className="bg-white w-96"
-      />
+      >
+        {options.map((option) => (
+          <MenuItem value={option}>{option}</MenuItem>
+        ))}
+      </Select>
       {error && (
         <FormHelperText error={!!error.message} className="mx-0">
           {error.message}
@@ -55,4 +65,4 @@ const InputField = ({
   )
 }
 
-export default InputField
+export default SelectField

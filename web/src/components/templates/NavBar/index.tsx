@@ -3,24 +3,29 @@
 import { useRouter } from "next/navigation"
 import AppBar from "@mui/material/AppBar"
 import Toolbar from "@mui/material/Toolbar"
+import cookies from "js-cookie"
 
 import React from "react"
 import Logo from "@/components/parts/Logo"
 import Button from "@/components/parts/Button"
+import { ACCESS_TOKEN_KEY } from "@/constants/authentication"
 
 const NavBar = () => {
   const router = useRouter()
 
-  const handleClose = () => router.push("/")
+  const handleClose = () => {
+    cookies.remove(ACCESS_TOKEN_KEY)
+    router.push("/")
+  }
 
   return (
-    <AppBar position="static" className="bg-deep-blue mb-10">
-      <Toolbar className="px-56">
+    <AppBar position="static" className="bg-deep-blue">
+      <Toolbar className="px-10 py-3">
         <Logo size="md" customStyle="flex-grow my-auto" />
         <Button
           label="SIGN OUT"
           onClick={handleClose}
-          customStyle="w-52 h-10"
+          className="text-white hover:bg-navy-blue"
         />
       </Toolbar>
     </AppBar>

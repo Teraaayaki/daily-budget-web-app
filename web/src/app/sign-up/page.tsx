@@ -1,9 +1,9 @@
 "use client"
 
-import SignInForm from "@/components/templates/SignInForm"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { isAuthenticated } from "@/lib/authentication"
+import SignUpForm from "@/components/templates/SignUpForm"
 
 export const SignInPage = () => {
   const { replace } = useRouter()
@@ -14,7 +14,7 @@ export const SignInPage = () => {
 
   return (
     <main className="py-40">
-      <SignInForm />
+      <SignUpForm />
     </main>
   )
 }

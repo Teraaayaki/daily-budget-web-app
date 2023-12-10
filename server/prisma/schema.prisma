@@ -16,7 +16,6 @@ model User {
   password      String
 
   dailyBudgets  DailyBudget[]
-  // expenses      Expense[]
 }
 
 model DailyBudget {
@@ -25,7 +24,7 @@ model DailyBudget {
   userId        String
   user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  date          DateTime 
+  date          DateTime      @unique
   budget        Decimal
   notes         String?
 
@@ -35,11 +34,8 @@ model DailyBudget {
 model Expense {
   id             String       @id @default(cuid())
 
-  // userId         String
-  // user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   dailyBudgetId  String
-  dailyBudget    DailyBudget  @relation(fields: [dailyBudgetId], references: [id])
+  dailyBudget    DailyBudget  @relation(fields: [dailyBudgetId], references: [id], onDelete: Cascade)
 
   category       ExpenseCategory
   amount         Decimal
@@ -47,7 +43,7 @@ model Expense {
 }
 
 enum ExpenseCategory {
-  FoodAndDining
+  Food
   Transportation
   Utilities
   Housing
