@@ -1,3 +1,4 @@
+import { Category } from "@/constants/daily-budget"
 import API from "../Base/index"
 
 export type CreateData = {
@@ -10,17 +11,34 @@ export type CreateDailyBudgetResponse = {
   message: string
 }
 
-export type DailyBudget = {
+export type Expense = {
+  id: string
+  notes: string | null
+  category: Category
+  amount: number
+}
+
+export interface DailyBudgetForFindAll {
   id: string
   date: Date
   budget: number
   notes: string | null
   totalExpenses: number
   remainingBudget: number
+  expenses: { amount: number }[]
 }
 
 export type FindAllDailyBudgetResponseData = {
-  data: DailyBudget[]
+  data: DailyBudgetForFindAll[]
+}
+
+export interface DailyBudgetForFindOne
+  extends Omit<DailyBudgetForFindAll, "expenses"> {
+  expenses: Expense[]
+}
+
+export type FindOneDailyBudgetResponseData = {
+  data: DailyBudgetForFindOne
 }
 
 const DailyBudgetApi = {
@@ -48,6 +66,14 @@ const DailyBudgetApi = {
     }
 
     return API.request<FindAllDailyBudgetResponseData>(options)
+  },
+  findOne: (id: string) => {
+    const options = {
+      method: "GET",
+      url: `/daily-budgets/${id}`,
+    }
+
+    return API.request<FindOneDailyBudgetResponseData>(options)
   },
 }
 

@@ -7,6 +7,7 @@ dotenv.config()
 
 import userRoutes from "./modules/user/user.routes"
 import dailyBudgetRoutes from "./modules/daily-budget/daily-budget.routes"
+import expenseRoutes from "./modules/expense/expense.routes"
 
 if (!process.env.PORT) {
   process.exit(1)
@@ -23,5 +24,6 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use("/api/users", userRoutes)
 app.use("/api/daily-budgets", dailyBudgetRoutes)
+app.use("/api/expenses", expenseRoutes)
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`))

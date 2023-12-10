@@ -1,8 +1,11 @@
-import DailyBudgetApi, { DailyBudget } from "@/api/DailyBudget"
+import DailyBudgetApi, {
+  DailyBudgetForFindAll,
+  DailyBudgetForFindOne,
+} from "@/api/DailyBudget"
 import { useEffect, useMemo, useState } from "react"
 
 export const useDailyBudgets = () => {
-  const [dailyBudgets, setDailyBudgets] = useState<DailyBudget[]>([])
+  const [dailyBudgets, setDailyBudgets] = useState<DailyBudgetForFindAll[]>([])
   const [triggerRefetch, setTriggerRefetch] = useState(false)
 
   useEffect(() => {
@@ -16,4 +19,25 @@ export const useDailyBudgets = () => {
   }
 
   return { dailyBudgets, refetch }
+}
+
+export const useDailyBudget = (id?: string) => {
+  const [dailyBudget, setDailyBudget] = useState<DailyBudgetForFindOne | null>(
+    null
+  )
+  const [triggerRefetch, setTriggerRefetch] = useState(false)
+
+  useEffect(() => {
+    if (!id) return
+
+    DailyBudgetApi.findOne(id).then(({ data }) => {
+      setDailyBudget(data.data || null)
+    })
+  }, [triggerRefetch, id])
+
+  const refetch = () => {
+    setTriggerRefetch((prev) => !prev)
+  }
+
+  return { dailyBudget, refetch }
 }

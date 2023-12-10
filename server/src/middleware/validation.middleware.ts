@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import { body, validationResult } from "express-validator"
 
-type Action = "signIn" | "signUp" | "createDailyBudget"
+type Action = "signIn" | "signUp" | "createDailyBudget" | "createExpense"
 
 export const validate = (action: Action) => {
   switch (action) {
@@ -18,6 +18,12 @@ export const validate = (action: Action) => {
       return [
         body("date", "Date is required.").exists(),
         body("budget", "Budget is required.").exists().isNumeric(),
+      ]
+    }
+    case "createExpense": {
+      return [
+        body("category", "Category is required.").exists(),
+        body("amount", "Amount is required.").exists().isNumeric(),
       ]
     }
   }

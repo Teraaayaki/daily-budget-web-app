@@ -1,7 +1,7 @@
 import express from "express"
 
 import requireAuth from "../../middleware/requireAuth.middleware"
-import { create, findAll, findOne, remove } from "./daily-budget.services"
+import { create, remove } from "./expense.services"
 import {
   validate,
   validationErrors,
@@ -9,12 +9,10 @@ import {
 
 const router = express.Router()
 
-router.get("/", requireAuth, findAll)
-router.get("/:id", requireAuth, findOne)
 router.post(
-  "/",
+  "/:dailyBudgetId",
   requireAuth,
-  validate("createDailyBudget"),
+  validate("createExpense"),
   validationErrors,
   create
 )

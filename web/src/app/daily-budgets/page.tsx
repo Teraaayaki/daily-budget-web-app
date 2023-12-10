@@ -13,7 +13,7 @@ import AuthenticatedLayout from "@/components/templates/AuthenticatedLayout"
 import Dialog from "@/components/parts/Dialog"
 import AddNewDailyBudgetModal from "@/components/templates/AddNewDailyBudgetModal"
 
-const HomePage = () => {
+const DailyBudgetListPage = () => {
   const {
     rows,
     openAddDialog,
@@ -57,6 +57,7 @@ const HomePage = () => {
       headerName: "NOTES",
       minWidth: 250,
       filterable: false,
+      sortable: false,
       flex: 1,
     },
     {
@@ -89,8 +90,6 @@ const HomePage = () => {
         <DataGrid
           rows={rows.map((row) => ({
             ...row,
-            viewLink: "View Details",
-            exportPdfBtn: "Generate PDF",
             deleteBtn: "",
           }))}
           columns={columns.map((col) => ({
@@ -122,4 +121,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default DailyBudgetListPage

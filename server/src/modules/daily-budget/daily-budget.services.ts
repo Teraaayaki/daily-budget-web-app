@@ -58,6 +58,45 @@ export const remove = async (req: Request, res: Response) => {
   }
 }
 
+export const findOne = async (req: Request, res: Response) => {
+  const id = req.params.id
+
+  try {
+    const dailyBudget = await db.dailyBudget.findFirst({
+      where: { id },
+      select: {
+        id: true,
+        date: true,
+        budget: true,
+        notes: true,
+        expenses: {
+          select: { id: true, category: true, amount: true, notes: true },
+        },
+      },
+    })
+
+    if (!dailyBudget) {
+      return res.status(404).json({ error: "Daily budget not found." })
+    }
+
+    const totalExpenses = dailyBudget.expenses.reduce(
+      (sum, expense) => sum + Number(expense.amount),
+      0
+    )
+
+    return res.status(200).json({
+      data: {
+        ...dailyBudget,
+        budget: Number(dailyBudget.budget),
+        totalExpenses,
+        remainingBudget: Number(dailyBudget.budget) - totalExpenses,
+      },
+    })
+  } catch (e) {
+    return res.status(500).json({ error: "Internal Server Error", e })
+  }
+}
+
 export const findAll = async (req: Request, res: Response) => {
   const { id: userId } = (req as any).user
 
@@ -69,7 +108,9 @@ export const findAll = async (req: Request, res: Response) => {
         date: true,
         budget: true,
         notes: true,
-        expenses: true,
+        expenses: {
+          select: { amount: true },
+        },
       },
       orderBy: {
         date: "desc",

@@ -57,7 +57,7 @@ const SelectField = ({
         ))}
       </Select>
       {error && (
-        <FormHelperText error={!!error.message} className="mx-0">
+        <FormHelperText error={!!error.message} className="mx-0 w-[384px]">
           {error.message}
         </FormHelperText>
       )}

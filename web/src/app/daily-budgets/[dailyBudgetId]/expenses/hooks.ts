@@ -1,39 +1,42 @@
-import { useDailyBudgets } from "@/hooks/api/daily-budget"
+import { useDailyBudget, useDailyBudgets } from "@/hooks/api/daily-budget"
 import { isAuthenticated } from "@/lib/authentication"
 import { formatAmountToCurrency } from "@/lib/amount"
 import { GridRowParams } from "@mui/x-data-grid"
 import { useRouter } from "next/navigation"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { formatDateToMMDDYYYY } from "@/lib/date"
 import DailyBudgetApi from "@/api/DailyBudget"
 import {
   defaultSnackbarInfo,
   useSnackbarContext,
 } from "@/contexts/SnackbarContext"
+import ExpenseApi from "@/api/Expense"
+import { useReactToPrint } from "react-to-print"
 
 export const useHooks = () => {
+  const componentRef = useRef()
   const { replace, push } = useRouter()
   const { setSnackbarInfo } = useSnackbarContext()
 
   const [openAddDialog, setOpenAddNewDialog] = useState(false)
   const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false)
   const [idToDelete, setIdToDelete] = useState<string>()
+  const [id, setId] = useState(() => window.location.pathname.split("/")[2])
 
-  const { dailyBudgets, refetch } = useDailyBudgets()
+  const { dailyBudget, refetch } = useDailyBudget(id)
+
+  useEffect(() => {
+    const dailyBudgetId = window.location.pathname.split("/")[2]
+    setId(dailyBudgetId)
+  }, [])
 
   useEffect(() => {
     if (!isAuthenticated()) replace("/")
   }, [])
 
   const rows = useMemo(() => {
-    return dailyBudgets.map((dailyBudget) => ({
-      ...dailyBudget,
-      date: formatDateToMMDDYYYY(dailyBudget.date),
-      budget: formatAmountToCurrency(dailyBudget.budget),
-      totalExpenses: formatAmountToCurrency(dailyBudget.totalExpenses),
-      remainingBudget: formatAmountToCurrency(dailyBudget.remainingBudget),
-    }))
-  }, [dailyBudgets])
+    return dailyBudget?.expenses ?? []
+  }, [dailyBudget])
 
   const addNewDailyBudget = () => setOpenAddNewDialog(true)
 
@@ -49,17 +52,13 @@ export const useHooks = () => {
     setOpenConfirmationDialog(false)
   }
 
-  const handleRowClick = (params: GridRowParams) => {
-    push(`/daily-budgets/${params.row.id}/expenses`)
-  }
-
-  const handleDeleteDailyBudget = async () => {
+  const handleDeleteExpense = async () => {
     if (!idToDelete) return
 
     try {
       const {
         data: { message },
-      } = await DailyBudgetApi.delete(idToDelete)
+      } = await ExpenseApi.delete(idToDelete)
 
       setSnackbarInfo({
         message,
@@ -82,16 +81,22 @@ export const useHooks = () => {
     }
   }
 
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current!!,
+  })
+
   return {
     rows,
     openAddDialog,
     addNewDailyBudget,
     closeAddDialog,
-    handleRowClick,
     openConfirmationDialog,
     handleOpenConfirmationDialog,
     handleCloseConfirmationDialog,
-    handleDeleteDailyBudget,
+    handleDeleteExpense,
     refetch,
+    dailyBudget,
+    componentRef,
+    handlePrint,
   }
 }

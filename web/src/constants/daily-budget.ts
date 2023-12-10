@@ -1,12 +1,14 @@
 export const Categories = {
-  FOOD: "Food",
-  TRANSPORTATION: "Transportation",
-  UTILITIES: "Utilities",
-  HOUSING: "Housing",
-  HEALTHCARE: "Healthcare",
-  EDUCATION: "Education",
-  TRAVEL: "Travel",
-  SAVINGS: "Savings",
-  DEBT: "Debt",
-  MISC: "Miscellaneous",
-}
+  Food: "Food",
+  Transportation: "Transportation",
+  Utilities: "Utilities",
+  Housing: "Housing",
+  Healthcare: "Healthcare",
+  Education: "Education",
+  Travel: "Travel",
+  Savings: "Savings",
+  Debt: "Debt",
+  Miscellaneous: "Miscellaneous",
+} as const
+
+export type Category = keyof typeof Categories
