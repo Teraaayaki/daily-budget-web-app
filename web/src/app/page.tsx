@@ -1,9 +1,10 @@
 "use client"
 
-import SignInForm from "@/components/templates/SignInForm"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+
 import { isAuthenticated } from "@/lib/authentication"
+import SignInForm from "@/components/templates/SignInForm"
 
 export const SignInPage = () => {
   const { replace } = useRouter()

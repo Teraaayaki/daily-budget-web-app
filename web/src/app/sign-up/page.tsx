@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+
 import { isAuthenticated } from "@/lib/authentication"
 import SignUpForm from "@/components/templates/SignUpForm"
 

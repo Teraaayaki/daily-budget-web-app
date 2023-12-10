@@ -1,16 +1,12 @@
-import { useForm } from "react-hook-form"
 import * as yup from "yup"
+import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import AuthApi from "@/api/Auth"
-import { useRouter } from "next/navigation"
-import cookies from "js-cookie"
 
+import DailyBudgetApi from "@/api/DailyBudget"
 import {
   defaultSnackbarInfo,
   useSnackbarContext,
 } from "@/contexts/SnackbarContext"
-import { Categories } from "@/constants/daily-budget"
-import DailyBudgetApi from "@/api/DailyBudget"
 
 const schema = yup.object({
   date: yup.date().required().typeError("date is a required field"),

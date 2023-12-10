@@ -1,12 +1,13 @@
 import React from "react"
-
 import Stack from "@mui/material/Stack"
+import Typography from "@mui/material/Typography"
+
 import Button from "@/components/parts/Button"
 import InputField from "@/components/parts/InputField"
-import Logo from "@/components/parts/Logo"
-import { useHooks } from "./hooks"
-import { Typography } from "@mui/material"
 import Link from "@/components/parts/Link"
+import Logo from "@/components/parts/Logo"
+
+import { useHooks } from "./hooks"
 
 export type FormType = "signIn" | "signUp"
 

@@ -2,7 +2,7 @@ import DailyBudgetApi, {
   DailyBudgetForFindAll,
   DailyBudgetForFindOne,
 } from "@/api/DailyBudget"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 
 export const useDailyBudgets = () => {
   const [dailyBudgets, setDailyBudgets] = useState<DailyBudgetForFindAll[]>([])

@@ -1,6 +1,7 @@
-import { ACCESS_TOKEN_KEY } from "@/constants/authentication"
 import axios from "axios"
 import cookies from "js-cookie"
+
+import { ACCESS_TOKEN_KEY } from "@/constants/authentication"
 
 const TOKEN = cookies.get(ACCESS_TOKEN_KEY)
 

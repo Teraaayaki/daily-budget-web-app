@@ -1,21 +1,18 @@
-import { useDailyBudget, useDailyBudgets } from "@/hooks/api/daily-budget"
-import { isAuthenticated } from "@/lib/authentication"
-import { formatAmountToCurrency } from "@/lib/amount"
-import { GridRowParams } from "@mui/x-data-grid"
-import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
-import { formatDateToMMDDYYYY } from "@/lib/date"
-import DailyBudgetApi from "@/api/DailyBudget"
+import { useReactToPrint } from "react-to-print"
+import { useRouter } from "next/navigation"
+
+import ExpenseApi from "@/api/Expense"
 import {
   defaultSnackbarInfo,
   useSnackbarContext,
 } from "@/contexts/SnackbarContext"
-import ExpenseApi from "@/api/Expense"
-import { useReactToPrint } from "react-to-print"
+import { useDailyBudget } from "@/hooks/api/daily-budget"
+import { isAuthenticated } from "@/lib/authentication"
 
 export const useHooks = () => {
   const componentRef = useRef()
-  const { replace, push } = useRouter()
+  const { replace } = useRouter()
   const { setSnackbarInfo } = useSnackbarContext()
 
   const [openAddDialog, setOpenAddNewDialog] = useState(false)

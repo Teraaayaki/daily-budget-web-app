@@ -1,10 +1,9 @@
-import type { GetServerSidePropsContext, Metadata } from "next"
+import type { Metadata } from "next"
+
+import { Snackbar } from "@/components/parts/Snackbar"
+import { SnackbarContextProvider } from "@/contexts/SnackbarContext"
 
 import "./globals.css"
-import NavBar from "@/components/templates/NavBar"
-import { SnackbarContextProvider } from "@/contexts/SnackbarContext"
-import { Snackbar } from "@/components/parts/Snackbar"
-import { isAuthenticated } from "@/lib/authentication"
 
 export const metadata: Metadata = {
   title: "Daily Budget",

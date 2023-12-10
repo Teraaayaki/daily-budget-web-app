@@ -1,11 +1,12 @@
 import express from "express"
 
 import requireAuth from "../../middleware/requireAuth.middleware"
-import { create, remove } from "./expense.services"
 import {
   validate,
   validationErrors,
 } from "../../middleware/validation.middleware"
+import { create, remove } from "./expense.services"
+
 
 const router = express.Router()
 
@@ -16,6 +17,7 @@ router.post(
   validationErrors,
   create
 )
+
 router.delete("/:id", requireAuth, remove)
 
 export default router

@@ -31,8 +31,6 @@ export const create = async (req: Request, res: Response) => {
 export const remove = async (req: Request, res: Response) => {
   const id = req.params.id
 
-  console.log({ id })
-
   const expense = await db.expense.findFirst({
     where: { id },
   })

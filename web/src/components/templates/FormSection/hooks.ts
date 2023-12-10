@@ -1,15 +1,16 @@
-import { useForm } from "react-hook-form"
 import * as yup from "yup"
-import { yupResolver } from "@hookform/resolvers/yup"
-import AuthApi from "@/api/Auth"
 import { useRouter } from "next/navigation"
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
 import cookies from "js-cookie"
 
+import AuthApi from "@/api/Auth"
+import { ACCESS_TOKEN_KEY } from "@/constants/authentication"
 import {
   defaultSnackbarInfo,
   useSnackbarContext,
 } from "@/contexts/SnackbarContext"
-import { ACCESS_TOKEN_KEY } from "@/constants/authentication"
+
 import { FormType } from "."
 
 const schema = yup.object({

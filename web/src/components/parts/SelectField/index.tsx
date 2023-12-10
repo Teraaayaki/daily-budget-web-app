@@ -1,11 +1,10 @@
 import React from "react"
-import FormLabel from "@mui/material/FormLabel"
-import TextField, { TextFieldProps } from "@mui/material/TextField"
 import { Control, useController } from "react-hook-form"
+import FormLabel from "@mui/material/FormLabel"
 import FormControl, { FormControlProps } from "@mui/material/FormControl"
 import FormHelperText from "@mui/material/FormHelperText"
+import MenuItem from "@mui/material/MenuItem"
 import Select, { SelectChangeEvent, SelectProps } from "@mui/material/Select"
-import { MenuItem } from "@mui/material"
 
 export type SelectFieldFormControlProps = Omit<
   FormControlProps,

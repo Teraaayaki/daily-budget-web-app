@@ -1,6 +1,6 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack"
-import IconButton from "@mui/material/IconButton"
 import { useRouter } from "next/navigation"
+import IconButton from "@mui/material/IconButton"
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 
 const BackButton = () => {
   const router = useRouter()

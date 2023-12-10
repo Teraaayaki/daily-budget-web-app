@@ -1,14 +1,12 @@
 "use client"
 
 import React from "react"
-import { DataGrid, GridColDef } from "@mui/x-data-grid"
+import Stack from "@mui/material/Stack"
+import Typography from "@mui/material/Typography"
 
-import { Box, Stack, Typography } from "@mui/material"
-import Button from "@/components/parts/Button"
-
-import { isAuthenticated } from "@/lib/authentication"
-import NavBar from "@/components/templates/NavBar"
 import BackButton from "@/components/parts/BackButton"
+import Button from "@/components/parts/Button"
+import NavBar from "@/components/templates/NavBar"
 
 type AuthenticatedLayoutProps = {
   title: string
