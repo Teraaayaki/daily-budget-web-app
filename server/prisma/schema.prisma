@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String        @id @default(cuid())
+  username      String        @unique 
+  password      String
+
+  dailyBudgets  DailyBudget[]
+  // expenses      Expense[]
+}
+
+model DailyBudget {
+  id            String        @id @default(cuid())
+  
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  date          DateTime 
+  budget        Decimal
+  notes         String?
+
+  expenses      Expense[]
+}
+
+model Expense {
+  id             String       @id @default(cuid())
+
+  // userId         String
+  // user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  dailyBudgetId  String
+  dailyBudget    DailyBudget  @relation(fields: [dailyBudgetId], references: [id])
+
+  category       ExpenseCategory
+  amount         Decimal
+  notes          String?
+}
+
+enum ExpenseCategory {
+  FoodAndDining
+  Transportation
+  Utilities
+  Housing
+  Healthcare
+  Education
+  Travel
+  Savings
+  Debt
+  Miscellaneous
+}
