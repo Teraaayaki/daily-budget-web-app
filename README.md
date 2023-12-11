@@ -55,6 +55,25 @@ pnpm dev
 bun dev
 ```
 
-- ERD
-    -  ![image](./docs/erd.png)
+### Features
+- Sign Up
+ - Register and create an account to start using the daily budget management app.
+
+- Sign In
+ - Log in with your credentials to access your personalized daily budget dashboard.
+
+- Add Daily Budget
+ - Create daily budgets to set spending limits and track your financial goals.
+
+- View Daily Budget Details
+ - Explore detailed information about your daily budgets, including allocated budget and remaining balance.
+
+- Add Expenses to the Daily Budget
+ - Log your daily expenses and categorize them within your budget to monitor spending.
+
+- Print Daily Budget Details with Expenses
+ - Generate a printable version of your daily budget details, including a list of expenses.
+
+### ERD
+> ![image](./docs/erd.png)
 
